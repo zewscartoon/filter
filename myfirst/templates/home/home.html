@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block content %}
+
+<!-- Start of Slider -->
+<div class="slideshow-container">
+{% if latest_advertisements_list %}
+  {% for i in latest_advertisements_list %}
+    <div class="mySlides slide">
+      <div class="numbertext"><a href="service.html#cont-block3">Коммент</a></div>
+      <img src="{{ MEDIA_URL }}{{ i.image.url }}" alt="{{i.alt}}">
+     </div>
+  {% endfor %}
+{% else %}
+    <div>Статьи не найдены</div>
+{% endif %}
+</div>
+<!-- End of Slider -->
+
+<div class="sticks"></div>
+Премьеры
+<div class="films">
+  {% if latest_premiers_list %}
+
+     {% for a in latest_premiers_list %}
+        <div class="board">
+            <img src="{{ MEDIA_URL }}{{ a.image.url }}" alt="">
+            <a href="{% url 'premiers:detail' a.id %}">{{a.premier_title}}</a>
+            {% if a.was_published_recently %}
+            <span>Новинка</span>
+            {% endif %}
+            <p>{{a.pub_date}}</p>
+        </div>
+     {% endfor %}
+
+  {% else %}
+    <div>Статьи не найдены</div>
+  {% endif %}
+</div>
+
+<div class="films">
+  {% if latest_films_list %}
+
+     {% for a in latest_films_list %}
+        <div class="board">
+            <img src="{{ MEDIA_URL }}{{ a.image.url }}" alt="">
+            <a href="{% url 'films:detail' a.id %}">{{a.title}}</a>
+            {% if a.was_published_recently %}
+            <span>Новинка</span>
+            {% endif %}
+            <p>{{a.pub_date}}</p>
+        </div>
+     {% endfor %}
+
+  {% else %}
+    <div>Фильм не найден</div>
+  {% endif %}
+</div>
+
+<div class="films">
+  {% if latest_cartoons_list %}
+
+     {% for a in latest_cartoons_list %}
+        <div class="board">
+            <img src="{{ MEDIA_URL }}{{ a.image.url }}" alt="">
+            <a href="{% url 'cartoons:detail' a.id %}">{{a.title}}</a>
+            {% if a.was_published_recently %}
+            <span>Новинка</span>
+            {% endif %}
+            <p>{{a.pub_date}}</p>
+        </div>
+     {% endfor %}
+
+  {% else %}
+    <div>Мультфильм не найден</div>
+  {% endif %}
+</div>
+
+<div class="films">
+	{% if latest_series_list %}
+
+     {% for a in latest_series_list %}
+        <div class="board">
+            <img src="{{ MEDIA_URL }}{{ a.image.url }}" alt="">
+            <a href="{% url 'series:detail' a.id %}">{{a.title}}</a>
+            {% if a.was_published_recently %}
+            <span>Новинка</span>
+            {% endif %}
+            <p>{{a.pub_date}}</p>
+        </div>
+     {% endfor %}
+
+  {% else %}
+    <div>Сериал не найден</div>
+  {% endif %}
+</div>
+   
+<script>
+    var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}
+    slides[slideIndex-1].style.display = "block";
+    setTimeout(showSlides, 10700); // Change image every 2 seconds
+}
+</script>
+<!--<script src="{% static 'js/slider.js' %}" defer></script> -->
+{% endblock %}

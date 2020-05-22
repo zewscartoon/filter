@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+Сериалы
+{% endblock %}
+
+{% block content %}
+<h1>Сериалы</h1>
+
+<div class="films">
+
+  {% if latest_series_list %}
+
+     {% for a in latest_series_list %}
+        <div class="board">
+            <img src="{{ MEDIA_URL }}{{ a.image.url }}" alt="">
+            <a href="{% url 'series:detail' a.id %}">{{a.title}}</a>
+            {% if a.was_published_recently %}
+            <span>Новинка</span>
+            {% endif %}
+			<p>{{a.Style}}</p>
+        </div>
+     {% endfor %}
+	 
+
+  {% else %}
+    <div>Сериал не найден</div>
+  {% endif %}
+
+</div>
+<div class="paginate">{% bootstrap_pagination latest_series_list pages_to_show=5 %}</div>
+{% endblock %}

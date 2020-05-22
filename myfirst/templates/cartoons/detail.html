@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+{{cartoon.title}}
+{% endblock %}
+
+
+{% block content %}
+
+<h2>{{cartoon.title}}</h2>
+
+<p>{{cartoon.text}}</p>
+<img src="{{ MEDIA_URL }}{{ cartoon.image.url }}" alt="">
+<em>{{cartoon.pub_date}}</em>
+
+{% if cartoon.was_published_recently %}
+ NEW!
+{% endif %}
+
+<hr>
+
+{% if latest_comments_list %}
+
+    {% for c in latest_comments_list %}
+       <p>
+         <strong>{{c.author_name}}</strong>
+         <p>{{c.comment_text}}</p>
+       </p>
+    {% endfor %}
+
+{% else %}
+Комментариеи не найдены!Станьте первым;)
+{% endif %}
+<hr>
+
+<form action="{% url 'cartoons:leave_comment' cartoon.id %}" method="POST">
+     {% csrf_token %}
+	 {% if user.is_authenticated %}
+        <p>Пользователь: {{ user.get_username }}</p>
+        <input type="hidden" name="name" value="{{ user.get_username }}">
+     {% else %}
+        <input type="text" required placeholder="Ваше имя" name="name"><br>
+     {% endif %}
+     <textarea name="text" required="" placeholder="Текст комментария" cols="30" row="10" ></textarea><br>
+     <button type="submit">Оставить комментарий</button>
+</form>
+
+{% endblock %}

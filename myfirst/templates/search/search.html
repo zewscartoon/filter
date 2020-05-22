@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <h1>Поиск</h1>
+    {% if search_list %}
+        {% for a in search_list %}
+            <div class="board">
+			    <h2>{{ a.title }}</h2>
+				<img src="{{ a.image.url }}" alt="">
+                {{ a.text|safe }}
+                <p><a class="btn btn-default btn-sm" href="{{ a.get_absolute_url }}">Читать далее</a></p>
+            </div>
+        {% endfor %}
+        <div class="paginate">{% bootstrap_pagination search_list pages_to_show=5  url=last_question %}</div>
+    {% else %}
+        <p>Не найдено публикаций по вашему запросу<br>Попробуйте повторить запрос с другой формулировкой</p>
+    {% endif %}
+{% endblock %}
+
+

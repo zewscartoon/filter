@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+Премьеры
+{% endblock %}
+
+{% block content %}
+<h1>Премьеры</h1>
+
+<div class="films">
+
+  {% if latest_premiers_list %}
+
+     {% for a in latest_premiers_list %}
+        <div class="board">
+            <img src="{{ MEDIA_URL }}{{ a.image.url }}" alt="">
+            <a href="{% url 'premiers:detail' a.id %}">{{a.premier_title}}</a>
+            {% if a.was_published_recently %}
+            <span>Новинка</span>
+            {% endif %}
+            <p>{{a.pub_date}}</p>
+        </div>
+     {% endfor %}
+
+  {% else %}
+    <div>Фильм не найден</div>
+  {% endif %}
+
+</div>
+<div class="paginate">{% bootstrap_pagination latest_premiers_list pages_to_show=5 %}</div>
+{% endblock %}

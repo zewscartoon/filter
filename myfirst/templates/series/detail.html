@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}
+{{serie.title}}
+{% endblock %}
+
+
+{% block content %}
+
+<h2>{{serie.title}}</h2>
+
+<p>{{serie.text}}</p>
+<img src="{{ MEDIA_URL }}{{ serie.image.url }}" alt="">
+<em>{{serie.pub_date}}</em>
+
+{% if serie.was_published_recently %}
+ NEW!
+{% endif %}
+
+<hr>
+<div class="comment">
+{% if latest_comments_list %}
+
+    {% for c in latest_comments_list %}
+       <div class="post">
+         <strong>{{c.author_name}}</strong>
+         <p>{{c.comment_text}}</p>
+       </div>
+    {% endfor %}
+
+{% else %}
+Комментариеи не найдены!Станьте первым;)
+{% endif %}
+</div>
+<hr>
+<div class="form">
+<form action="{% url 'series:leave_comment' serie.id %}" method="POST">
+     {% csrf_token %}
+	 <p class="form_title">Оставить комментарий</p>
+	 {% if user.is_authenticated %}
+        <div class="form_user">Пользователь: <span>{{ user.get_username }}</span></div>
+        <input type="hidden" name="name" value="{{ user.get_username }}">
+     {% else %}
+	 <div class="form_grup">
+	 <label class="form_label">Ваше имя:</label>
+        <input type="text" class="form_input" required placeholder=" " name="name">
+	 </div>
+     {% endif %}
+	 <div class="form_grup">
+	 <label class="form_label">Текст комментария:</label>
+     <textarea name="text" class="form_input" placeholder=" "></textarea>
+     </div>
+	 <button type="submit" class = "send">Отправить</button>
+</form>
+</div>
+{% endblock %}

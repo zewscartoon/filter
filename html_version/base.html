@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#394048">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{% block title %} Title {% endblock %}</title>
+  <link href="style.css" rel="stylesheet">
+  <link rel="icon" type="img/title2.png" href="http://46.188.16.215/img/title2.png">
+</head>
+<body>
+<header>
+    <div class="head-block1">
+     LOGO
+    </div>
+    <div class="head-block2">
+
+    <button class="but right-adaptive" type="button">
+	<span></span>
+		<ul class="main-nav__list-close">
+         <a href="#"><li class="site-list__item">Комедии</li></a>
+		 <a href="#"><li class="site-list__item">Ужасы</li></a>
+		 <a href="#"><li class="site-list__item">Триллер</li></a>
+		 <a href="#"><li class="site-list__item">Фентези</li></a>
+		 <a href="#"><li class="site-list__item">Сериалы</li></a>
+		 </ul>
+	</button>
+    </div>
+</header>
+<main>
+  {% block content %}
+  {% endblock %}
+</main>
+<footer>
+  <div class="footer-column footer-left">
+    <p>© 2012—2020 Filter.ru</p>
+    <p>Все права защищены.</p>
+    <p>Лучшие фильмы в хорошем качестве.</p>
+  </div>
+  <div class='footer-column footer-right'>
+    <h2>Наш адрес</h2>
+    <p>Россия, г. Москва, ул.Деловая, д. 4</p>
+  </div>
+</footer>
+</body>
+</html>
